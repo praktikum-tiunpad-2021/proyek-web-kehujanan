@@ -36,17 +36,20 @@
 <!-- Fungsi -->
 ## Fungsi
 
-TO;DO
+> Login sebagai user
+> Mencatat tugas yang diberikan beserta mata kuliah dan deadlinenya
+> Menambah mata kuliah baru
+> Ceklis status tugas yang sudah selesai
 
 <!-- Tujuan -->
 ## Tujuan
 
-TO;DO
+Membantu siswa dalam perkuliahan dengan memudahkan mengingat atau mencatat tugas-tugas yang diberikan.
 
 <!-- Target Pengguna -->
 ## Target Pengguna
 
-TO;DO
+Nahasiswa belajar
 
 <!-- Mockup Kasar -->
 ## Mockup Kasar
