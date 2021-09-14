@@ -6,10 +6,10 @@
     <img src="https://img.freepik.com/free-vector/happy-kids-umbrella-rain_97632-692.jpg?size=338&ext=jpg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Judul Proyek</h3>
+  <h3 align="center">Web Manajemen Tugas</h3>
 
   <p align="center">
-    Deskripsi Proyek
+    by Kelompok Kehujanan
   </p>
 </p>
 
@@ -37,10 +37,10 @@
 <!-- Fungsi -->
 ## Fungsi
 
-> Login sebagai user
-> Mencatat tugas yang diberikan beserta mata kuliah dan deadlinenya
-> Menambah mata kuliah baru
-> Ceklis status tugas yang sudah selesai
+- Login sebagai user<br>
+- Mencatat tugas yang diberikan beserta mata kuliah dan deadlinenya<br>
+- Menambah mata kuliah baru<br>
+- Ceklis status tugas yang sudah selesai<br>
 
 <!-- Tujuan -->
 ## Tujuan
