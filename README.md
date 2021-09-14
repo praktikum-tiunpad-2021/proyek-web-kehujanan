@@ -2,7 +2,8 @@
 <br />
 <p align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="https://via.placeholder.com/80/FFFFFF/808080?text=Logo" alt="Logo" width="80" height="80">
+    <!--<img src="https://via.placeholder.com/80/FFFFFF/808080?text=Logo" alt="Logo" width="80" height="80">-->
+    <img src="https://img.freepik.com/free-vector/happy-kids-umbrella-rain_97632-692.jpg?size=338&ext=jpg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Judul Proyek</h3>
