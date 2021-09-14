@@ -49,7 +49,7 @@ Membantu siswa dalam perkuliahan dengan memudahkan mengingat atau mencatat tugas
 <!-- Target Pengguna -->
 ## Target Pengguna
 
-Nahasiswa belajar
+Mahasiswa belajar
 
 <!-- Mockup Kasar -->
 ## Mockup Kasar
