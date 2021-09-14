@@ -29,9 +29,9 @@
 ## Anggota Tim
 | NPM           | Name        |
 | ------------- |-------------|
-| 140810xx00xx  | John Doe    |
-| 140810xx00xx  | Jane Doe    |
-| 140810xx00xx  | Janie Doe   |
+| 140810200011  | Faiq Muhammad    |
+| 140810200017  | Mohammad Keenan Febriansyah    |
+| 140810200029  | Adnan Rafiyansyah Majid   |
 
 <!-- Fungsi -->
 ## Fungsi
