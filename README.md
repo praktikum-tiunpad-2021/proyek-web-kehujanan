@@ -51,9 +51,8 @@ TO;DO
 <!-- Mockup Kasar -->
 ## Mockup Kasar
 
-TO;DO
-
-Gambar mockup di sini atau [link figma](https://figma.com/).
+<img src="https://i.imgur.com/ayfRdRX.png" alt="mockup1" text="Mockup kasar 1" width="800" height="600">
+<img src="https://i.imgur.com/yFmIIJz.png" alt="mockup1" text="Mockup kasar 2" width="800" height="600">
 
 <!-- Skema Database -->
 ## Skema Database
