@@ -51,8 +51,8 @@ TO;DO
 <!-- Mockup Kasar -->
 ## Mockup Kasar
 
-<img src="https://i.imgur.com/ayfRdRX.png" alt="mockup1" text="Mockup kasar 1" width="800" height="600">
-<img src="https://i.imgur.com/yFmIIJz.png" alt="mockup1" text="Mockup kasar 2" width="800" height="600">
+<img src="https://i.imgur.com/ayfRdRX.png" alt="mockup1" text="Mockup kasar 1" width="1200" height="600">
+<img src="https://i.imgur.com/yFmIIJz.png" alt="mockup1" text="Mockup kasar 2" width="1200" height="600">
 
 <!-- Skema Database -->
 ## Skema Database
