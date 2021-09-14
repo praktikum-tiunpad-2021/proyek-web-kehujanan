@@ -57,4 +57,4 @@ TO;DO
 <!-- Skema Database -->
 ## Skema Database
 
-TO;DO
+<img src="https://i.imgur.com/23SheDB.png" alt="skemaDB1" text="Skema Database">
