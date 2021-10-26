@@ -1,0 +1,134 @@
+body{
+    margin: 0;
+    height: 2000px;
+    display: grid;    
+    grid-auto-columns: minmax(min-content,max-content) auto;
+    grid-template-rows: 100vh auto;
+    /* grid-template-areas: "sdbr cntr"; */
+    align-items: stretch;
+}
+.container{
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    background: #ffffff;
+}
+.filler{
+
+    width: 100%;
+    height: 100%;
+    background: #cfcfcf;
+}
+.sideWrapper{
+    grid-column: 1;
+    grid-row: 1;
+    background: #cfcfcf;
+    display: grid;
+    grid-template-rows: min-content auto;
+    align-items: start;
+    max-width: 61px;
+    min-width: 17px;
+    width: 15vw;
+    height: 100vh;
+    position: sticky;
+    top: 0%;
+}
+.sidebar, .sidefoot{
+    display: grid;
+    list-style: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.sidebar{
+    /* grid-template-columns: max-content; */
+    grid-auto-rows: auto;
+    align-self: stretch;
+}
+.sidefoot{
+    grid-row: 2;
+    align-self: end;
+    align-items: end;
+    border-top: #52a3ff 4px solid;
+}
+.sidebarBtn{
+    position: relative;
+    width: 15vw;
+    height: 15vw;
+    min-height: 17px;
+    min-width: 17px;
+    max-height: 61px;
+    max-width: 61px;
+}
+.sidebarBtn *{
+    position: absolute;
+    clip-path: circle(50.0% at 50% 50%);
+
+    width: 72%;
+    height: 72%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    transition: 50ms all;
+}
+.sidebarBtn.active{
+    background: #a8a8a8;
+}
+.sidebarBtn.active *{
+    background: #a8a8a8;
+    clip-path: circle(67.0% at 50% 50%);
+}
+.sidebarBtn::after{
+    content: '';
+    position: absolute;
+    
+    right:0%;
+    top:50%;
+    transform:translateY(-50%);
+
+    height: 0%;
+    width: 0%;
+
+    background: #52a3ff;
+    
+    text-align:center;
+    transition: 200ms all;
+}
+.sidebarBtn.active::after{
+    width: 7%;
+    height:100%;
+}
+.sidebarBtn:hover *{
+    clip-path: circle(67.0% at 50% 50%);
+    transition: 200ms all;
+}
+.sidebarBtn:hover{
+    background: #a8a8a8;
+}
+.sidebarBtn::before, .sidebarBtn.active::before{
+    content: attr(tooltip); /* here's the magic */
+    font-size: calc(30% + 2.0vmin);
+    position: absolute;
+    
+    top:50%;
+    transform:translateY(-50%);
+    
+    left:100%;
+    margin-left: 6%; 
+    
+    width:max-content;
+    padding: 9%;
+    border-radius: 4px;
+
+    background: black;
+    color: #cfcfcf;
+    text-align:center;
+    
+    transition: 1ms;
+    opacity: 0; 
+    
+}
+.sidebarBtn:hover::before, .sidebarBtn.active:hover:before{
+    transition: 500ms step-end;
+    opacity: 100;
+}
