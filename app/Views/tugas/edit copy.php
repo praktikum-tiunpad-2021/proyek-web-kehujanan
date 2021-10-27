@@ -1,7 +1,8 @@
-
+<?= $this->extend('layout/base'); ?>
+<?= $this->section('content'); ?>
 <main>
   <h2>Edit tugas</h2>
-  <form id="forrm" action="/tugas/update/<?= $tugas['id_tugas']; ?>" method="POST">
+  <form action="/tugas/update/<?= $tugas['id_tugas']; ?>" method="POST">
     <?= csrf_field(); ?>
     <input type="hidden" name="id_tugas" value="<?= $tugas['id_tugas']; ?>">
     <input type="hidden" name="id_user" value="<?= $tugas['id_user']; ?>">
@@ -44,6 +45,7 @@
         </select>
       </div>
     </div>
-    <a onclick="postForm(document.querySelector('#forrm'));">Kirim</a>
+    <button type="submit">Kirim</button>
   </form>
 </main>
+<?= $this->endSection(); ?>

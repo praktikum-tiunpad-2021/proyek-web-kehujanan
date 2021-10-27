@@ -22,7 +22,7 @@ class Tugas extends BaseController
   {
     $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas') : 1;
     $data = [
-      'tugas' => $this->tugasModel->paginate(5, 'tugas'),
+      'tugas' => $this->tugasModel->paginate(null, 'tugas'),
       'pager' => $this->tugasModel->pager,
       'currentPage' => $currPage
     ];
@@ -43,6 +43,7 @@ class Tugas extends BaseController
     $this->tugasModel->delete($id_tugas);
     session()->setFlashdata('pesan', 'Tugas dengan ID ' . $id_tugas . ' berhasil dihapus.');
     return redirect()->to('/tugas');
+    // return redirect()->to('/');
   }
 
   public function create()
@@ -116,18 +117,20 @@ class Tugas extends BaseController
         ]
       ]
     ])) {
+      // return redirect()->to('/tugas');
       return redirect()->to('/tugas/edit/' . $this->request->getVar('id_tugas'))->withInput();
-    }
+    }else{
 
-    $this->tugasModel->save([
-      'id_tugas' => $id_tugas,
-      'nama_tugas' => $this->request->getVar('nama_tugas'),
-      'deskripsi' => $this->request->getVar('deskripsi'),
-      'deadline' => $this->request->getVar('deadline'),
-      'id_user' => $this->request->getVar('id_user'),
-      'id_matkul' => $this->request->getVar('id_matkul')
-    ]);
-    session()->setFlashdata('pesan', 'Data berhasil diubah.');
-    return redirect()->to('/tugas');
+      $this->tugasModel->save([
+        'id_tugas' => $id_tugas,
+        'nama_tugas' => $this->request->getVar('nama_tugas'),
+        'deskripsi' => $this->request->getVar('deskripsi'),
+        'deadline' => $this->request->getVar('deadline'),
+        'id_user' => $this->request->getVar('id_user'),
+        'id_matkul' => $this->request->getVar('id_matkul')
+      ]);
+      session()->setFlashdata('pesan', 'Data berhasil diubah.');
+      return redirect()->to('/tugas');
+    }
   }
 }

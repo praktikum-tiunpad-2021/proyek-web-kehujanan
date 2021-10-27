@@ -1,44 +1,25 @@
-<?= $this->extend('layout/base'); ?>
 
-<?= $this->section('stylesheet'); ?>
-<link rel="stylesheet" href="/css/tabel.css">
-<?= $this->endSection(); ?>
-
-<?= $this->section('content'); ?>
-<main>
-  <h1>TUGAS</h1>
-  <?php if (session()->getFlashdata('pesan')) : ?>
-  <div>
-    <?= session()->getFlashdata('pesan'); ?>
-  </div>
-  <?php endif; ?>
-  <a href="/tugas/create">Tambah Tugas Baru</a>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col" class="urutan">No</th>
-        <th scope="col" class="nama-tugas">Nama Tugas</th>
-        <th scope="col" class="deadline-tugas">Deadline</th>
-        <th scope="col" class="status-tugas">Status</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php $i = 1 + (5 * ($currentPage - 1)) ?>
-      <?php foreach ($tugas as $t) : ?>
-      <tr>
-        <td><?= $i++ ?></td>
-        <td><?= $t['nama_tugas']; ?></td>
-        <td><?= $t['deadline']; ?></td>
-        <td><?= $t['status']; ?></td>
-        <td></td>
-        <td>
-          <a href="/tugas/<?= $t['id_tugas']; ?>">detail-></a>
-        </td>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-  <?= $pager->links('tugas', 'tugas_pagination') ?>
-</main>
-<?= $this->endSection(); ?>
+<?php $i = 1 ?>
+<?php foreach ($tugas as $t) : ?>
+<ul class="dbList">
+    <li class="dbRow">
+        <div class="nama"><?= $t['nama_tugas']; ?></div>
+        <div class="time">
+            <div class="deadline"><?= $t['deadline']; ?></div>
+            <div class="timeLeft">Waktu tersisa</div>
+        </div>
+        <div class="tags"></div>
+        <div class="delete" onclick="deleteTugas(this);"  action="/tugas/<?= $t['id_tugas']; ?>" method="DELETE"></div>
+        <div onclick="aactivate(this);" page="/tugas/edit/<?= $t['id_tugas']; ?>" class="hands"></div>
+        <div class="index"><?= $i++ ?></div>
+        <div class="status"></div>
+        <div class="link">
+          <a onclick="aactivate(this)" page="/tugas/<?= $t['id_tugas']; ?>" data="<?= $t['id_tugas']; ?>">DETAIL</a>
+        </div>
+    </li>
+</ul>
+<?php endforeach; ?>
+<div class="floatBtns">
+    <div onclick="aactivate(this)" page="/tugas/create" class="addBtn"><div>+</div></div>
+    <div class="filterBtn"><div>Y</div></div>
+</div>

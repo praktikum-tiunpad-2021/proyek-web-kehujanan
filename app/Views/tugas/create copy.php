@@ -1,7 +1,8 @@
-
+<?= $this->extend('layout/base'); ?>
+<?= $this->section('content'); ?>
 <main>
   <h2>Tambah tugas</h2>
-  <form id="forrm" action="/tugas/save" method="POST">
+  <form action="/tugas/save" method="POST">
     <?= csrf_field(); ?>
     <div>
       <label for="nama">Nama Tugas</label>
@@ -48,6 +49,7 @@
         </select>
       </div>
     </div>
-    <a onclick="postForm(document.querySelector('#forrm'));">Tambah Data</a>
+    <button type="submit">Tambah Data</button>
   </form>
 </main>
+<?= $this->endSection(); ?>
