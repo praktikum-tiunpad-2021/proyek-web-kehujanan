@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Okt 2021 pada 18.44
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.11
+-- Generation Time: Nov 24, 2021 at 07:14 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,28 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `matkul`
+-- Table structure for table `tags`
 --
 
-CREATE TABLE `matkul` (
-  `id_matkul` int(10) NOT NULL,
-  `nama_matkul` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+CREATE TABLE `tags` (
+  `id_tag` int(10) NOT NULL,
+  `nama_tag` varchar(255) NOT NULL,
+  `id_tugas` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `matkul`
+-- Dumping data for table `tags`
 --
 
-INSERT INTO `matkul` (`id_matkul`, `nama_matkul`, `created_at`, `updated_at`) VALUES
-(1, 'xyz', '2021-10-25 12:38:11', '2021-10-25 12:38:11'),
-(2, 'wxyz', '2021-10-25 12:38:11', '2021-10-25 12:38:11');
+INSERT INTO `tags` (`id_tag`, `nama_tag`, `id_tugas`) VALUES
+(14, 'abcd', 27),
+(15, 'aiueo', 27),
+(16, 'aeugh', 27),
+(17, 'anjaymabar', 27),
+(18, 'abc', 28),
+(19, 'bcd', 28),
+(20, 'efg', 28);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tugas`
+-- Table structure for table `tugas`
 --
 
 CREATE TABLE `tugas` (
@@ -53,33 +57,36 @@ CREATE TABLE `tugas` (
   `nama_tugas` varchar(255) NOT NULL,
   `deskripsi` varchar(255) DEFAULT NULL,
   `deadline` datetime NOT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
   `id_user` int(10) NOT NULL,
-  `id_matkul` int(10) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tugas`
+-- Dumping data for table `tugas`
 --
 
-INSERT INTO `tugas` (`id_tugas`, `nama_tugas`, `deskripsi`, `deadline`, `status`, `id_user`, `id_matkul`, `created_at`, `updated_at`) VALUES
-(1, 'tugas 1222222', 'tugas 1', '2021-10-28 23:10:00', NULL, 1, 1, '2021-10-25 12:39:12', '2021-10-26 11:10:33'),
-(2, 'tugas 2', 'tugas 2', '2021-10-25 12:40:19', NULL, 1, 1, '2021-10-25 12:40:19', '2021-10-25 12:40:19'),
-(3, 'tugas 3', 'tugas 3', '2021-10-25 12:41:15', NULL, 1, 2, '2021-10-25 12:41:15', '2021-10-25 12:41:15'),
-(4, 'tugas 4', 'tugas 4', '2021-10-25 12:41:34', NULL, 2, 1, '2021-10-25 12:41:34', '2021-10-25 12:41:34'),
-(11, 'ayonima', 'afdgs', '2021-10-26 17:17:00', NULL, 1, 2, '2021-10-26 05:17:49', '2021-10-26 05:17:49'),
-(12, 'abced', 'adsfvdb', '2021-10-26 17:22:00', NULL, 1, 1, '2021-10-26 05:22:13', '2021-10-26 05:22:13'),
-(13, 'abced', 'adsfvdb', '2021-10-27 19:11:00', NULL, 1, 1, '2021-10-26 07:12:01', '2021-10-26 07:12:01');
+INSERT INTO `tugas` (`id_tugas`, `nama_tugas`, `deskripsi`, `deadline`, `status`, `id_user`, `created_at`, `updated_at`) VALUES
+(17, 'ayonima', 'sadfg', '2021-11-09 14:46:00', 1, 3, '2021-11-21 01:46:57', '2021-11-21 01:46:57'),
+(18, 'ayo the pizza is here', 'ow n', '2021-11-21 15:00:00', 0, 4, '2021-11-21 02:01:02', '2021-11-21 02:01:02'),
+(19, 'asdfgfhgkj', 'adsfg', '2021-11-05 22:58:00', 1, 5, '2021-11-21 07:53:23', '2021-11-21 09:38:25'),
+(21, 'abcede', 'wdafsdafsd', '2021-11-12 22:03:00', 0, 5, '2021-11-21 09:03:40', '2021-11-21 09:03:40'),
+(22, 'advsbfdndbsd', 'afdsafds', '2021-11-05 22:03:00', 0, 5, '2021-11-21 09:03:48', '2021-11-21 09:03:48'),
+(23, 'asdffafdgsv', 'adfsadvadacs', '2021-11-06 22:03:00', 0, 5, '2021-11-21 09:03:56', '2021-11-21 09:03:56'),
+(24, 'asdvaccasacs', 'assacsacasda', '2021-11-04 22:04:00', 0, 5, '2021-11-21 09:04:04', '2021-11-21 09:04:04'),
+(26, 'abcedeeeee', 'asdgfdng', '2021-11-12 23:27:00', 0, 5, NULL, NULL),
+(27, 'abcedeeeeeaaa', 'asdgfdng TAGS PLZ', '2021-11-12 23:27:00', 1, 5, NULL, NULL),
+(28, 'adsfbgfnh', 'dsgfnhdsgg', '2021-11-24 08:13:00', 1, 7, NULL, NULL),
+(29, 'dfghjk', 'asdfhg', '2021-11-11 08:14:00', 0, 7, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id_user` int(10) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -90,69 +97,77 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `user` (`id_user`, `email`, `password`, `nama_user`, `universitas`, `created_at`, `updated_at`) VALUES
-(1, 'abcd@gmail.com', 'aiueo', 'abcd', NULL, '2021-10-25 12:36:40', '2021-10-25 12:36:40'),
-(2, 'abcde@gmail.com', 'aiueo', 'abcde', NULL, '2021-10-25 12:36:40', '2021-10-25 12:36:40');
+INSERT INTO `users` (`id_user`, `email`, `password`, `nama_user`, `universitas`, `created_at`, `updated_at`) VALUES
+(3, 'faiq2003@gmail.com', '$2y$10$tHEqvwImdW60SuYvwiwVX.B28bDy.6tdToGtbh4W2zXYiRNXgWMUW', '', NULL, '2021-11-20 23:36:32', '2021-11-20 23:36:32'),
+(4, 'faiq@gmail.com', '$2y$10$PUuqyhqBdwrlsDwuxbRgwu.XKLVCT5m16bxIQydedfICiRh96U8EK', '', NULL, '2021-11-21 01:59:28', '2021-11-21 01:59:28'),
+(5, 'faiqq@gmail.com', '$2y$10$XQhUabc6GQovspy1Z3/1l.omWTBQW5yiaM5dCVKV83wf2.PMIiweK', 'faiq Muhammad', NULL, '2021-11-21 07:52:50', '2021-11-21 07:52:50'),
+(6, 'faiqq2003@gmail.com', '$2y$10$Nmgb/FKLDXEo/ZXiBENh.ea7bMneVJN0fn2ThtyJkH.8fBg4xLsAK', '', NULL, '2021-11-22 01:19:16', '2021-11-22 01:19:16'),
+(7, 'faiqm2003@gmail.com', '$2y$10$oZheQBlhzyIB09StLuP0EuF6vyWY/Ar/N3SBS1WK5WAIkxDQKv2jW', '', NULL, '2021-11-23 19:12:40', '2021-11-23 19:12:40');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `matkul`
+-- Indexes for table `tags`
 --
-ALTER TABLE `matkul`
-  ADD PRIMARY KEY (`id_matkul`);
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id_tag`),
+  ADD KEY `tugas_tag` (`id_tugas`);
 
 --
--- Indeks untuk tabel `tugas`
+-- Indexes for table `tugas`
 --
 ALTER TABLE `tugas`
   ADD PRIMARY KEY (`id_tugas`),
-  ADD KEY `user_tugas` (`id_user`),
-  ADD KEY `matkul_tugas` (`id_matkul`);
+  ADD KEY `user_tugas` (`id_user`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `matkul`
+-- AUTO_INCREMENT for table `tags`
 --
-ALTER TABLE `matkul`
-  MODIFY `id_matkul` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `tags`
+  MODIFY `id_tag` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT untuk tabel `tugas`
+-- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_tugas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `user`
-  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `users`
+  MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `tugas`
+-- Constraints for table `tags`
+--
+ALTER TABLE `tags`
+  ADD CONSTRAINT `tugas_tag` FOREIGN KEY (`id_tugas`) REFERENCES `tugas` (`id_tugas`);
+
+--
+-- Constraints for table `tugas`
 --
 ALTER TABLE `tugas`
-  ADD CONSTRAINT `matkul_tugas` FOREIGN KEY (`id_matkul`) REFERENCES `matkul` (`id_matkul`),
-  ADD CONSTRAINT `user_tugas` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `user_tugas` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
