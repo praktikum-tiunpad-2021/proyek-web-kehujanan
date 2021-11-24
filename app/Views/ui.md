@@ -1,4 +1,4 @@
-#buat ui
+# buat ui
 
 - landing.php = pas pertama kali user masuk webnya
 - login.php = dari landing page bisa login
