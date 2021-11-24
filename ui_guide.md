@@ -1,6 +1,6 @@
 # buat ui
 
-- landing.php = pas pertama kali user masuk webnya
+- landing.php = pas pertama kali user masuk webnya (blom masuk route)
 - login.php = dari landing page bisa login
 - register.php = kalo blom punya akun register dulu baru login
 - dashboard.php = page default (harusnya) kalo user udah login
