@@ -34,14 +34,14 @@
       </div>
     </div>
     <div>
-      <label for="id_matkul">ID matkul</label>
+      <label for="status">Status</label>
       <div>
-        <select name="id_matkul" id="id_matkul">
-          <?php foreach ($matkul as $m) : ?>
-          <option value="<?= $m['id_matkul']; ?>" <?= $tugas['id_matkul'] == $m['id_matkul'] ? "selected" : ""; ?>>
-            <?= $m['id_matkul'] ?>
+        <?php $status = (old('status')) ? old('status') : $tugas['status'] ?>
+        <select name="status">
+          <option value="0" <?php if ($status == "0") : ?> selected <?php endif; ?>>Belum Selesai
           </option>
-          <?php endforeach ?>
+          <option value="1" <?php if ($status == "1") : ?> selected <?php endif; ?>>Sudah Selesai
+          </option>
         </select>
       </div>
     </div>

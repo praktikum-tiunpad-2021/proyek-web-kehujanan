@@ -8,8 +8,6 @@
     <p> Nama Tugas : <?= $tugas['nama_tugas']; ?></p>
     <p> Deskripsi : <?= $tugas['deskripsi']; ?></p>
     <p> Deadline : <?= $tugas['deadline']; ?></p>
-    <p> ID User : <?= $tugas['id_user']; ?></p>
-    <p> ID Matkul : <?= $tugas['id_matkul']; ?></p>
   </div>
   <a href="/tugas/edit/<?= $tugas['id_tugas']; ?>">Edit</a>
   <form action="/tugas/<?= $tugas['id_tugas']; ?>" method="POST">

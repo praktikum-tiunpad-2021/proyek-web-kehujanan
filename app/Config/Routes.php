@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Controllers\Tags;
+use App\Models\TagsModel;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -17,7 +20,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Users');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -31,15 +34,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Pages::index');
-$routes->get('/tugas/', 'Tugas::index');
-$routes->get('/tugas/create', 'Tugas::create');
-$routes->get('/tugas/edit/(:num)', 'Tugas::edit/$1');
-$routes->get('/tugas/(:num)', 'Tugas::detail/$1');
-$routes->delete('/tugas/(:num)', 'Tugas::delete/$1');
-$routes->get('/matkul/', 'Matkul::index');
-$routes->get('/user/', 'User::index');
-
+$routes->get('/', 'Users::index', ['filter' => 'noauth']);
+$routes->get('/logout', 'Users::logout', ['filter' => 'auth']);
+$routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
+$routes->match(['get', 'post'], '/profile', 'Users::profile', ['filter' => 'auth']);
+$routes->get('/dashboard', 'Users::dashboard', ['filter' => 'auth']);
+$routes->get('/tugas/', 'Tugas::index', ['filter' => 'auth']);
+$routes->get('/tugas/create', 'Tugas::create', ['filter' => 'auth']);
+$routes->get('/tugas/edit/(:num)', 'Tugas::edit/$1', ['filter' => 'auth']);
+$routes->get('/tugas/(:num)', 'Tugas::detail/$1', ['filter' => 'auth']);
+$routes->delete('/tugas/(:num)', 'Tugas::delete/$1', ['filter' => 'auth']);
+$routes->match(['get', 'post'], 'tes_tag', 'Tags::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

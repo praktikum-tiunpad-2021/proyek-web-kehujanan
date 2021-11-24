@@ -11,8 +11,8 @@
     <div id="navbar-menu" aria-labelledby="navbar-toggle">
       <ul class="navbar-links">
         <li class="navbar-item"><a class="navbar-link" href="/tugas/index">Tugas</a></li>
-        <li class="navbar-item"><a class="navbar-link" href="/matkul/index">Matkul</a></li>
-        <li class="navbar-item"><a class="navbar-link" href="/user/index">User</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="/profile">Profile</a></li>
+        <li class="navbar-item"><a class="navbar-link" href="/logout">Logout</a></li>
       </ul>
     </div>
   </nav>

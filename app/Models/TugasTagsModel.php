@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class MatkulModel extends Model
+class TugasTagsModel extends Model
 {
-  protected $table = 'matkul';
-  protected $primaryKey = 'id_matkul';
+  protected $table = 'tugas_tags';
+  protected $primaryKey = 'id_tag';
   protected $useTimestamps = true;
   protected $dateFormat = 'datetime';
   protected $createdField  = 'created_at';
   protected $updatedField  = 'updated_at';
 
-  public function getMatkul($id_matkul)
+  public function getMatkul($id_tugas_tag)
   {
-    return $this->where(['id_matkul' => $id_matkul])->first();
+    return $this->where(['id_tugas_tag' => $id_tugas_tag])->first();
   }
 }
