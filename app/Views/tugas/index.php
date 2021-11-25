@@ -22,9 +22,10 @@
         <button type="submit">Cari</button>
       </form>
       <form action="" method="post">
+        <input type="hidden" name="tags_filter" value="1">
         <select name="tagchoice" id="">
-          <?php foreach ($tugas as $t) : ?>
-          <option value="<?= $t['nama_tag']; ?>"><?= $t['nama_tag']; ?></option>
+          <?php foreach ($tags as $t2) : ?>
+          <option value="<?= $t2['nama_tag']; ?>"><?= $t2['nama_tag']; ?></option>
           <?php endforeach; ?>
         </select>
         <button type="submit">Cari</button>

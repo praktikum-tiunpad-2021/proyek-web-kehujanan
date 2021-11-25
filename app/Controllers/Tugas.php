@@ -17,16 +17,20 @@ class Tugas extends BaseController
   }
   public function index()
   {
-    $query = $this->tugasModel->select('tugas.id_tugas, nama_tugas, deadline, status, GROUP_CONCAT(COALESCE(nama_tag, "")) as nama_tag');
+    $query = $this->tugasModel->select('tugas.id_tugas as id_tugas, tugas.nama_tugas as nama_tugas, tugas.deadline as deadline, tugas.status as status, GROUP_CONCAT(COALESCE(tags.nama_tag, "")) as nama_tag');
     $keyword = $this->request->getVar('keyword');
+    $tagkey = $this->request->getVar('tagchoice');
     if ($keyword) {
       $tugas = $query->search($keyword);
+    } else if ($tagkey) {
+      $tugas = $query->tagFilter($tagkey);
     } else {
       $tugas = $query;
     }
     $user = session()->get('id_user');
     $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas') : 1;
     $data = [
+      'tags' => $this->tagsModel->findAll(),
       'tugas' => $tugas->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_user', $user)->groupBy('tugas.id_tugas')->paginate(5, 'tugas'),
       'keyword' => $keyword,
       'pager' => $this->tugasModel->pager,

@@ -30,4 +30,8 @@ class TugasModel extends Model
   {
     return $this->table($this->table)->like('nama_tugas', $keyword);
   }
+  public function tagFilter($tagkey)
+  {
+    return $this->table($this->table)->like('nama_tag', $tagkey);
+  }
 }

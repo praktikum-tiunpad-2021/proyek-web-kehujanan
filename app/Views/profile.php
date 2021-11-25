@@ -24,7 +24,8 @@
             <div class="">
               <div class="">
                 <label for="email">Email:</label>
-                <input type="text" style="border: none;" readonly id="email" value="<?= $user['email'] ?>">
+                <input type="text" style="border: none;" readonly id="email" value="<?= $user['email'] ?>"
+                  autocomplete="email">
               </div>
             </div>
             <hr>
