@@ -61,5 +61,4 @@ Mahasiswa belajar
 <!-- Skema Database -->
 ## Skema Database
 
-<img src="https://i.imgur.com/qrfOWdV.png" alt="skemaDB1" text="Skema Database">
-![skema](projWeb.png)
+<img src="projWeb.png" alt="skemaDB1" text="Skema Database">
