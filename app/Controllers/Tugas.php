@@ -30,9 +30,10 @@ class Tugas extends BaseController
     $user = session()->get('id_user');
     $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas') : 1;
     $data = [
-      'tags' => $this->tagsModel->findAll(),
+      'tags' => $this->tagsModel->join('tugas', 'tugas.id_tugas = tags.id_tugas')->where('tugas.id_user', $user)->findAll(),
       'tugas' => $tugas->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_user', $user)->groupBy('tugas.id_tugas')->paginate(5, 'tugas'),
       'keyword' => $keyword,
+      'tagkey' => $tagkey,
       'pager' => $this->tugasModel->pager,
       'currentPage' => $currPage
     ];
@@ -41,8 +42,12 @@ class Tugas extends BaseController
 
   public function detail($id_tugas)
   {
+    $tugasTags = $this->tugasModel->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_tugas', $id_tugas)->findAll();
+    $tugas = $this->tugasModel->getTugas($id_tugas);
+    $tugasAllTag = implode(",", array_column($tugasTags, 'nama_tag'));
     $data = [
-      'tugas' => $this->tugasModel->getTugas($id_tugas)
+      'tugas' => $tugas,
+      'tags' => $tugasAllTag
     ];
 
     return view('tugas/detail', $data);
@@ -50,6 +55,10 @@ class Tugas extends BaseController
 
   public function delete($id_tugas)
   {
+    $tagsDB = $this->tagsModel->where('id_tugas', $id_tugas)->findAll();
+    foreach ($tagsDB as $tDB) {
+      $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
+    }
     $this->tugasModel->delete($id_tugas);
     session()->setFlashdata('pesan', 'Tugas dengan ID ' . $id_tugas . ' berhasil dihapus.');
     return redirect()->to('/tugas');
@@ -118,9 +127,12 @@ class Tugas extends BaseController
 
   public function edit($id_tugas)
   {
+    $tugasTags = $this->tugasModel->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_tugas', $id_tugas)->findAll();
+    $tugasAllTag = implode(",", array_column($tugasTags, 'nama_tag'));
     $data = [
       'validation' => \Config\Services::validation(),
       'tugas' => $this->tugasModel->getTugas($id_tugas),
+      'tags' => $tugasAllTag
     ];
 
     return view('tugas/edit', $data);
@@ -160,6 +172,25 @@ class Tugas extends BaseController
         'status' => $this->request->getVar('status'),
 
       ]);
+      $tags = $this->request->getVar('tags');
+      $tagsDB = $this->tagsModel->where('id_tugas', $id_tugas)->findAll();
+      $tugasTags = implode(",", array_column($tagsDB, 'nama_tag'));
+      $dataTags = [];
+      if ($tags != '') {
+        $tagsArr = explode(',', $tags);
+        $index = 0;
+        foreach ($tagsArr as $tag) {
+          $dataTags[$index]['id_tugas'] = $id_tugas;
+          $dataTags[$index]['nama_tag'] = $tag;
+          $index++;
+        }
+        if ($tugasTags != $tags) {
+          foreach ($tagsDB as $tDB) {
+            $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
+          }
+          $this->tagsModel->insertBatch($dataTags);
+        }
+      }
       session()->setFlashdata('pesan', 'Data tugas berhasil diubah.');
     }
 

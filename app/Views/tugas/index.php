@@ -21,15 +21,18 @@
         <input type="text" placeholder="Search" name="keyword" value="<?= $keyword ?>">
         <button type="submit">Cari</button>
       </form>
+      <?php if (!empty($tags)) : ?>
       <form action="" method="post">
         <input type="hidden" name="tags_filter" value="1">
         <select name="tagchoice" id="">
           <?php foreach ($tags as $t2) : ?>
-          <option value="<?= $t2['nama_tag']; ?>"><?= $t2['nama_tag']; ?></option>
+          <option value="<?= $t2['nama_tag']; ?>" <?php echo (($t2['nama_tag'] == $tagkey) ? 'selected' : '') ?>>
+            <?= $t2['nama_tag']; ?></option>
           <?php endforeach; ?>
         </select>
         <button type="submit">Cari</button>
       </form>
+      <?php endif; ?>
     </div>
     <?php if ($keyword) : ?>
     <div><a href="">clear keyword</a></div>

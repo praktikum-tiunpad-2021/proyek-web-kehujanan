@@ -34,6 +34,12 @@
       </div>
     </div>
     <div>
+      <label for="tags">Tag</label>
+      <div>
+        <textarea name="tags" id="tags" cols="30" rows="5"><?= (old('tags')) ? old('tags') : $tags; ?></textarea>
+      </div>
+    </div>
+    <div>
       <label for="status">Status</label>
       <div>
         <?php $status = (old('status')) ? old('status') : $tugas['status'] ?>
