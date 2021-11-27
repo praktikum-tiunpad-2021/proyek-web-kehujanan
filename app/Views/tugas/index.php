@@ -17,12 +17,12 @@
     <a href="/tugas/create">Tambah Tugas</a>
     <?php if (count($tugas) != 0) : ?>
     <div>
-      <form action="" method="post">
+      <form action="/tugas" method="post">
         <input type="text" placeholder="Search" name="keyword" value="<?= $keyword ?>">
         <button type="submit">Cari</button>
       </form>
       <?php if (!empty($tags)) : ?>
-      <form action="" method="post">
+      <form action="/tugas" method="post">
         <input type="hidden" name="tags_filter" value="1">
         <select name="tagchoice" id="">
           <?php foreach ($tags as $t2) : ?>
@@ -35,7 +35,10 @@
       <?php endif; ?>
     </div>
     <?php if ($keyword) : ?>
-    <div><a href="">clear keyword</a></div>
+    <div><a href="/tugas">clear search</a></div>
+    <?php endif; ?>
+    <?php if ($tagkey) : ?>
+    <div><a href="/tugas">clear tag</a></div>
     <?php endif; ?>
     <div class="table-container">
       <table class="table">

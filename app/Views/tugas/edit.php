@@ -27,7 +27,7 @@
       <label for="deadline">Deadline</label>
       <div>
         <input type="datetime-local" id="deadline" name="deadline"
-          value="<?= (old('deadline')) ? old('deadline') : $tugas['deadline'] ?>">
+          value="<?= (old('deadline')) ? old('deadline') : date('Y-m-d\TH:i:s', strtotime($tugas['deadline'])) ?>">
         <div class="invalid-input">
           <?= $validation->getError('deadline'); ?>
         </div>
