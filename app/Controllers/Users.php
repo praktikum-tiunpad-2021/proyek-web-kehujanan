@@ -95,8 +95,9 @@ class Users extends BaseController
   public function profile()
   {
     helper(['form']);
+    $id_user = session()->get('id_user');
     $data = [
-      'user' => $this->model->where('id_user', session()->get('id_user'))->first(),
+      'user' => $this->model->where('id_user', $id_user)->first(),
       'title' => 'Profile'
     ];
     if ($this->request->getMethod() == 'post') {
@@ -113,14 +114,13 @@ class Users extends BaseController
         $data['validation'] = $this->validator;
       } else {
         $newData = [
-          'id_user' => session()->get('id_user'),
-          'nama_user' => $this->request->getPost('lastname'),
+          'nama_user' => $this->request->getPost('nama_user'),
         ];
 
         if ($this->request->getPost('password') != '') {
           $newData['password'] = $this->request->getPost('password');
         }
-        $this->model->save($newData);
+        $this->model->update($id_user, $newData);
         session()->setFlashdata('success', 'Successful Updated');
         return redirect()->to('/profile');
       }

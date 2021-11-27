@@ -12,7 +12,7 @@ class UsersModel extends Model
   protected $dateFormat = 'datetime';
   protected $createdField  = 'created_at';
   protected $updatedField  = 'updated_at';
-  protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'updated_at'];
+  protected $allowedFields = ['nama_user', 'email', 'password', 'updated_at'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

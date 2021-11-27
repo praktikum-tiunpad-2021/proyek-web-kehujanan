@@ -18,7 +18,7 @@
               <div class="">
                 <label for="nama_user">Nama:</label>
                 <input type="text" name="nama_user" id="nama_user"
-                  value="<?= set_value('nama_user', $user['nama_user']) ?>">
+                  value="<?= set_value('nama_user', $user['nama_user']) ?>" autocomplete="off">
               </div>
             </div>
             <div class="">
@@ -32,13 +32,14 @@
             <div class="">
               <div class="">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" value="">
+                <input type="password" class="form-control" name="password" id="password" value="" autocomplete="off">
               </div>
             </div>
             <div class="">
               <div class="">
                 <label for="password_confirm">Confirm Password</label>
-                <input type="password" class="" name="password_confirm" id="password_confirm" value="">
+                <input type="password" class="" name="password_confirm" id="password_confirm" value=""
+                  autocomplete="off">
               </div>
             </div>
             <?php if (isset($validation)) : ?>

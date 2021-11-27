@@ -44,7 +44,6 @@ $routes->get('/tugas/create', 'Tugas::create', ['filter' => 'auth']);
 $routes->get('/tugas/edit/(:num)', 'Tugas::edit/$1', ['filter' => 'auth']);
 $routes->get('/tugas/(:num)', 'Tugas::detail/$1', ['filter' => 'auth']);
 $routes->delete('/tugas/(:num)', 'Tugas::delete/$1', ['filter' => 'auth']);
-$routes->match(['get', 'post'], 'tes_tag', 'Tags::index');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
