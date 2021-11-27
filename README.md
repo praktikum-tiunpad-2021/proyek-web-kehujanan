@@ -62,4 +62,4 @@ Mahasiswa belajar
 ## Skema Database
 
 <img src="https://i.imgur.com/qrfOWdV.png" alt="skemaDB1" text="Skema Database">
-![SKEMA] (projWeb.png)
+![skema](projWeb.png)
