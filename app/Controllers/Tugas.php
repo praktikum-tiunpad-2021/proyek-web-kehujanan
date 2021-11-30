@@ -31,7 +31,7 @@ class Tugas extends BaseController
     $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas') : 1;
     $data = [
       'tags' => $this->tagsModel->join('tugas', 'tugas.id_tugas = tags.id_tugas')->where('tugas.id_user', $user)->groupBy('nama_tag')->findAll(),
-      'tugas' => $tugas->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_user', $user)->groupBy('tugas.id_tugas')->paginate(5, 'tugas'),
+      'tugas' => $tugas->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_user', $user)->groupBy('tugas.id_tugas')->findAll(),
       'keyword' => $keyword,
       'tagkey' => $tagkey,
       'pager' => $this->tugasModel->pager,

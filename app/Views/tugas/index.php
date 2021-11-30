@@ -81,9 +81,6 @@
           <?php endforeach; ?>
         </tbody>
       </table>
-      <div>
-        <?= $pager->links('tugas', 'tugas_pagination') ?>
-      </div>
       <div><br></div>
 
       <?php else : ?>
