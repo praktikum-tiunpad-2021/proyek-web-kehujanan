@@ -61,4 +61,5 @@ Mahasiswa belajar
 <!-- Skema Database -->
 ## Skema Database
 
-<img src="projWeb.png" alt="skemaDB1" text="Skema Database">
+![image](https://user-images.githubusercontent.com/57803800/145096685-793568fa-b542-448c-b871-714a2a33abd3.png)
+
