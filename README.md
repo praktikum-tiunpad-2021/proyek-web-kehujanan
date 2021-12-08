@@ -39,8 +39,11 @@
 
 - Login sebagai user<br>
 - Mencatat tugas yang diberikan beserta mata kuliah dan deadlinenya<br>
-- Menambah mata kuliah baru<br>
+- Menambah tag-tag pada tugas<br>
 - Ceklis status tugas yang sudah selesai<br>
+- Filter tugas<br>
+- Mengedit tugas<br>
+- Login dengan akun lain<br>
 
 <!-- Tujuan -->
 ## Tujuan
@@ -50,7 +53,7 @@ Membantu siswa dalam perkuliahan dengan memudahkan mengingat atau mencatat tugas
 <!-- Target Pengguna -->
 ## Target Pengguna
 
-Mahasiswa belajar
+Mahasiswa belajar yang suka mencatat tugas-tugasnya
 
 <!-- Mockup Kasar -->
 ## Mockup Kasar
