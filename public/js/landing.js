@@ -124,13 +124,14 @@ function injectScript(payload){
         script.remove();
         // script.classList.add('old');
     });
-    console.log(createInjectContainer(payload.cloneNode()));
     let scripts = payload.querySelectorAll("script");
+    // console.log(createInjectContainer(payload.cloneNode()));
     let scriptNode;
     scripts.forEach(script => {
         if(script.classList.contains('inject')){
             scriptNode = document.createElement('script');
             scriptNode.innerHTML = script.innerHTML;
+            console.log(scriptNode);
             // if(script.classList.contains('once')) 
             script.remove();
             injectContainer.appendChild(scriptNode);
@@ -310,13 +311,14 @@ function addTag(el = new HTMLElement(),selectedList = new HTMLElement()) {
     let value = el.value;
     if(value == "") return;
     el.value = '';
-    document.getElementById("tagOption_"+value).setAttribute('disabled', '');
+    document.getElementById("tagOption_"+value).disabled = true;
     let node = document.createElement('input');
     node.setAttribute('type','checkbox');
     node.classList.add('tag');
     node.checked = true;
     node.value = value;
     node.name = selectedList.id+"[]";
+    node.id = "selectedTag_"+value;
     node.setAttribute('onclick','clearTag(this);');
     selectedList.appendChild(node);
 }

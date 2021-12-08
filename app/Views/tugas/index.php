@@ -5,7 +5,10 @@
   // var_dump($selectedTags);
   // var_dump($query);
   // var_dump($tags);
-  ?>
+
+use Faker\Documentor;
+
+?>
 <?php $i = 1 ?>
 
 <?php foreach ($tugas as $t) : ?>
@@ -45,17 +48,22 @@
   <?php if(!$isPost) : ?>
     if(document.getElementById('tagList'))
     document.getElementById('tagList').remove();
-    let tagList = document.createElement('datalist');
-    let selectedList = document.getElementById('selectedTags');
-    let searchBar = document.getElementById('searchBar');
+    var tagList = document.createElement('datalist');
+    var selectedList = document.getElementById('selectedTags');
+    var searchBar = document.getElementById('searchBar');
     tagList.id = "tagList";
     <?php foreach ($tags as $t2) : ?>
-      tagList.appendChild(htmlToElement(" <option value=\"<?=$t2?>\" id=\"<?="tagOption_".$t2?>\"<?php if(in_array($t2,$selectedTags))echo "disabled" ?>></option>"));
+      var node = htmlToElement(" <option value=\"<?=$t2?>\" id=\"<?="tagOption_".$t2?>\"></option>");
+      tagList.appendChild(node);
     <?php endforeach; ?>
     document.getElementById('filterForm').appendChild(tagList);
-    searchBar.value = "<?=$keyword?>";
     <?php foreach ($selectedTags as $st) : ?>
-      selectedList.appendChild(htmlToElement("<input type=\"checkbox\" class=\"tag\" value=\"<?=$st?>\" checked name=\"selectedTags[]\" onclick=\"clearTag(this);\"></input>"))
+      if(document.getElementById('selectedTag_<?=$st?>') == null)
+      selectedList.appendChild(htmlToElement("<input type=\"checkbox\" class=\"tag\" value=\"<?=$st?>\" checked name=\"selectedTags[]\" onclick=\"clearTag(this);\" id=\"<?="selectedTag_".$st?>\"></input>"))
     <?php endforeach; ?>
+    <?php foreach ($tags as $t2) : ?>
+      if(document.getElementById('selectedTag_<?=$t2?>') != null) document.getElementById("<?="tagOption_".$t2?>").disabled = true;
+    <?php endforeach; ?>
+    searchBar.value = "<?=$keyword?>";
 <?php endif; ?>
 </script>
