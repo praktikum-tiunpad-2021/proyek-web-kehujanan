@@ -39,8 +39,11 @@
     <header id="notificationList" class="empty"></header>
     <section id="filterModal" class="modal hidden">
         <form id="filterForm" class="filterContainer" action="/tugas/index" method="post" autocomplete="off">
-            <div class="item" >
+            <div class="item" tyle="grid-row: 1; grid-column: 1;">
                 <h1 style="border-width: 0px;font-size:200%;font-weight:lighter;">Filter Menu</h1>
+            </div>
+            <div class="item" style="grid-row: 1; grid-column: 1;position:absolute;top:35px; left:20px; width:8px; height:8px;">
+            <button class="textButton" type="button" onclick="toggleFilter();">x</button>
             </div>
             <div class="item">
                 <input class="input" placeholder=" "  type="search" placeholder="Search" name="keyword" id="searchBar" value="">
