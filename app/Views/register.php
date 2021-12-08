@@ -1,65 +1,36 @@
-<?= $this->extend('layout/base'); ?>
-<?= $this->section('content'); ?>
-<main class="container">
-  <br><br><br><br>
-  <section>
-    <h2>REGISTER</h2>
-    <hr>
-    <?php if (session()->getFlashData('pesan')) : ?>
-    <div class="register-success" role="alert">
-      <h2>
-        <?= session()->get('pesan'); ?>
-      </h2>
-    </div>
-    <?php endif; ?>
-    <form action="/register" method="POST" autocomplete="off">
-      <div class="register-info">
-        <div class="text-box">
+<head>
+  <script src="https://kit.fontawesome.com/2be75d9ff2.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
 
-          <div class="register-name">
-            <label for="nama_user">
-              Nama Lengkap
-            </label><br>
-            <input type="text" class="input-text-box" required size="40" name="nama_user" id="nama_user"
-              autocomplete="register-name">
-          </div>
-          <div class="register-email">
-            <label for="email">
-              Email
-            </label><br>
-            <input type="text" class="input-text-box" required size="40" name="email" id="email"
-              value="<?= set_value('email'); ?>" autocomplete="register-email">
-          </div>
+  <form action="/register" class="container" method="POST" autocomplete="new-password">
+  <div class="item" >
+                <h1 style="border-width: 0px;font-size:200%;font-weight:lighter;margin-bottom:30px">App Tugas</h1>
+            </div>
+    <div class="item"><input required type="search" id="nnama" name="nama_user" class="input" placeholder=" " autocomplete="new-password">
+    <label class="label" for="nnama">Nama Lengkap</label></div>
+    
+<div class="item"><input required type="email" id="email" name="email" class="input" placeholder=" " autocomplete="new-password">
+    <label class="label" for="email">Email</label></div>
+    
+    <div class="item"><input required type="password" id="password" name="password" class="input" placeholder=" " autocomplete="new-password">
+    <label class="label" for="password">Password</label></div>
+    
+    <div class="item"><input required type="password" id="password_confirm" name="password_confirm" class="input" placeholder=" " autocomplete="new-password">
+    <label class="label" for="password_confirm">Confirm Password</label></div>
 
-          <div class="register-password">
-            <label for="password">
-              Password
-            </label><br>
-            <input type="password" class="input-text-box" required size="40" name="password" id="password"
-              autocomplete="register-pass">
-          </div>
-          <div class="register-password-confirm">
-            <label for="password_confirm">
-              Confirm Password
-            </label><br>
-            <input type="password" class="input-text-box" required size="40" name="password_confirm"
-              id="password_confirm" autocomplete="register-pass_confirm">
-          </div>
-        </div>
-
-        <?php if (isset($validation)) : ?>
-        <div class="register-error">
-          <?= $validation->listErrors(); ?>
-        </div>
-        <?php endif; ?>
-        <div class="register-submit">
-          <button type="submit" class="submit-button">Register</button>
-        </div>
-        <div class="register">
-          <a href="/">Sudah punya akun?</a>
-        </div>
+    <div class="item errors">
+    <?php if (isset($validation)) : ?>
+      <div class="errors">
+        <?= $validation->listErrors(); ?>
       </div>
-    </form>
+    <?php endif; ?>
+    </div>
+        
+    <div class="item">
+      <a href="/" class="textButton" text="login"><span>sudah punya akun?</span></a>
+      <button class="buttonText" type="submit" text="register"><i class="far fa-paper-plane"></i></button></div>
   </section>
-</main>
-<?= $this->endSection(); ?>
+    
+</body>

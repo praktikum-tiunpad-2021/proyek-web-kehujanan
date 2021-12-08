@@ -32,6 +32,8 @@ class TugasModel extends Model
   }
   public function tagFilter($tagkey)
   {
-    return $this->table($this->table)->like('nama_tag', $tagkey);
+    // return $this->table($this->table)->like('nama_tag', $tagkey);
+    return $this->table($this->table)->where('nama_tag', $tagkey);
   }
+
 }

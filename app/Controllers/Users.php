@@ -83,14 +83,7 @@ class Users extends BaseController
       }
     }
 
-    return view('/register');
-  }
-  public function dashboard()
-  {
-    $data = [
-      'title' => 'Dashboard'
-    ];
-    return view('dashboard', $data);
+    return view('/register',$data);
   }
   public function profile()
   {
@@ -121,6 +114,7 @@ class Users extends BaseController
           $newData['password'] = $this->request->getPost('password');
         }
         $this->model->update($id_user, $newData);
+        session()->setFlashdata('pesan', 'Profile Successfully Updated');
         session()->setFlashdata('success', 'Successful Updated');
         return redirect()->to('/profile');
       }

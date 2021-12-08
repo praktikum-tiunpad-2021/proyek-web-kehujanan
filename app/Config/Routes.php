@@ -2,9 +2,6 @@
 
 namespace Config;
 
-use App\Controllers\Tags;
-use App\Models\TagsModel;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -20,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Users');
+$routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -34,16 +31,27 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->post('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('/logout', 'Users::logout', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], '/profile', 'Users::profile', ['filter' => 'auth']);
-$routes->get('/dashboard', 'Users::dashboard', ['filter' => 'auth']);
-$routes->get('/tugas/', 'Tugas::index', ['filter' => 'auth']);
+$routes->get('/dashboard', 'Dashboard', ['filter' => 'auth']);
+$routes->get('/dashboard/tugas', 'Dashboard', ['filter' => 'auth']);
+$routes->get('/dashboard/tugas/index', 'Dashboard', ['filter' => 'auth']);
+$routes->get('/dashboard/tugas/create', 'Dashboard::create', ['filter' => 'auth']);
+$routes->get('/dashboard/tugas/edit/(:num)', 'Dashboard::edit/$1', ['filter' => 'auth']);
+$routes->get('/dashboard/tugas/lorem30', 'Dashboard::lorem30', ['filter' => 'auth']);
+$routes->get('/dashboard/profile', 'Dashboard::profile', ['filter' => 'auth']);
+$routes->get('/tugas', 'Tugas::index', ['filter' => 'auth']);
+$routes->post('/tugas/index', 'Tugas::index', ['filter' => 'auth']);
+$routes->get('/tugas/index', 'Tugas::index', ['filter' => 'auth']);
 $routes->get('/tugas/create', 'Tugas::create', ['filter' => 'auth']);
 $routes->get('/tugas/edit/(:num)', 'Tugas::edit/$1', ['filter' => 'auth']);
+$routes->get('/tugas/mark/(:num)', 'Tugas::markStatus/$1', ['filter' => 'auth']);
 $routes->get('/tugas/(:num)', 'Tugas::detail/$1', ['filter' => 'auth']);
 $routes->delete('/tugas/(:num)', 'Tugas::delete/$1', ['filter' => 'auth']);
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

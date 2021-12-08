@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use App\Models\TugasModel;
 use App\Models\TagsModel;
+use CodeIgniter\HTTP\Response;
+
+use function PHPUnit\Framework\containsEqual;
 
 class Tugas extends BaseController
 {
@@ -17,25 +20,63 @@ class Tugas extends BaseController
   }
   public function index()
   {
-    $query = $this->tugasModel->select('tugas.id_tugas as id_tugas, tugas.nama_tugas as nama_tugas, tugas.deadline as deadline, tugas.status as status, GROUP_CONCAT(COALESCE(tags.nama_tag, "")) as nama_tag');
-    $keyword = $this->request->getVar('keyword');
-    $tagkey = $this->request->getVar('tagchoice');
-    if ($keyword) {
-      $tugas = $query->search($keyword);
-    } else if ($tagkey) {
-      $tugas = $query->tagFilter($tagkey);
-    } else {
-      $tugas = $query;
-    }
+    // $query = $this->tugasModel->select('tugas.id_tugas as id_tugas, tugas.nama_tugas as nama_tugas, tugas.deadline as deadline, tugas.status as status, tags.nama_tag as nama_tag');
+    // session()->set('atackOnTitan','gokuDrip');
     $user = session()->get('id_user');
-    $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas') : 1;
+    $selectedTags = $this->request->getVar('selectedTags');
+    $keyword = $this->request->getVar('keyword');
+    $isPost = $this->request->getMethod() == "post";
+    if ($isPost) {
+      session()->set('selectedTags',$selectedTags);
+      session()->set('keyword',$keyword);
+    }else{
+      $selectedTags = session()->get('selectedTags');
+      $keyword = session()->get('keyword');
+    }
+    $tagkey = $this->request->getVar('tagchoice');
+    $tugas = $this->tugasModel->where('id_user', $user)->join('tags', 'tugas.id_tugas = tags.id_tugas', 'left outer')->groupBy('tugas.id_tugas')->select('tugas.id_tugas as id_tugas, tugas.nama_tugas as nama_tugas, tugas.deadline as deadline, tugas.status as status, tags.nama_tag as nama_tag, tugas.deskripsi as deskripsi');
+    if ($keyword) {
+      $tugas = $tugas->search($keyword);
+    }
+    $tugas = $tugas->findAll();
+    // if ($keyword == null || $keyword == "") $keyword = "";
+    if ($selectedTags == null || $selectedTags == "") $selectedTags = [];
+    foreach ($tugas as $key => &$t) {
+        $idt = $t['id_tugas'];
+        $datestr = $t['deadline'];
+        $date=strtotime($datestr);
+
+        $diff=$date-time();
+        $days=floor($diff/(60*60*24));
+        $hours=floor(($diff-$days*60*60*24)/(60*60));
+        $mins=round(($diff-$days*60*60*24-$hours*60*60)/60);
+        $timeLeft = "$days days $hours hours $mins mins";
+        $t['timeLeft'] = $timeLeft;
+
+        $tugasTags = array_column($this->tagsModel->where('id_tugas',$idt)->findAll(),'nama_tag');
+        $t['nama_tag'] = $tugasTags;
+        foreach ($selectedTags as $tagkey) {
+          if ($tagkey != null && $tagkey != ""){
+            if(!in_array($tagkey,$tugasTags))
+            unset($tugas[$key]);
+            // $tugas = $tugas->tagFilter($tagkey);
+          }
+        }
+    }
+
+    $tags = $this->tagsModel->select('nama_tag')->groupBy('nama_tag')->join('tugas','tugas.id_tugas = tags.id_tugas')->where('id_user',$user)->findAll();
+    $tags = array_column($tags,'nama_tag');
+    sort($tags);
+    $currPage = $this->request->getVar('page_tugas') ? $this->request->getVar('page_tugas'): 1;
     $data = [
-      'tags' => $this->tagsModel->join('tugas', 'tugas.id_tugas = tags.id_tugas')->where('tugas.id_user', $user)->groupBy('nama_tag')->findAll(),
-      'tugas' => $tugas->join('tags', 'tags.id_tugas = tugas.id_tugas', 'left')->where('tugas.id_user', $user)->groupBy('tugas.id_tugas')->findAll(),
+      'tags' => $tags,
+      'tugas' => $tugas,
       'keyword' => $keyword,
       'tagkey' => $tagkey,
       'pager' => $this->tugasModel->pager,
-      'currentPage' => $currPage
+      'currentPage' => $currPage,
+      'selectedTags' => $selectedTags,
+      'isPost' => $isPost
     ];
     return view('tugas/index', $data);
   }
@@ -59,9 +100,10 @@ class Tugas extends BaseController
     foreach ($tagsDB as $tDB) {
       $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
     }
-    $this->tugasModel->delete($id_tugas);
-    session()->setFlashdata('pesan', 'Tugas dengan ID ' . $id_tugas . ' berhasil dihapus.');
-    return redirect()->to('/tugas');
+    $isSuccess = $this->tugasModel->delete($id_tugas);
+    $this->response->setHeader('status', $isSuccess ? 'dihapus' : 'gagal');
+    $this->response->setHeader('pesan', 'Tugas dengan ID ' . $id_tugas . ($isSuccess ? ' berhasil' : ' gagal' ).' dihapus');
+    return $this;
   }
 
   public function create()
@@ -99,6 +141,8 @@ class Tugas extends BaseController
         ]
       ]
     ])) {
+      session()->setFlashdata('pesan', 'Data gagal ditambahkan.');
+      session()->setFlashdata('isError', 'true');
       return redirect()->to('/tugas/create')->withInput();
     }
 
@@ -122,7 +166,7 @@ class Tugas extends BaseController
 
 
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
-    return redirect()->to('/tugas');
+    return redirect()->to('/tugas/index');
   }
 
   public function edit($id_tugas)
@@ -138,6 +182,16 @@ class Tugas extends BaseController
     return view('tugas/edit', $data);
   }
 
+  public function markStatus($id_tugas){
+    $tugas = $this->tugasModel->getTugas($id_tugas);
+    $status = $tugas['status'] == 0 ? 1 : 0;
+    $isError = !$this->tugasModel->updateData($id_tugas, [
+      'status' => $status
+    ]);
+    $this->response->setHeader('pesan', $isError ? 'Status gagal diubah' : 'Status berhasil diubah');
+    $this->response->setHeader('markstatus', $status ? 'selesai' : 'belum');
+    return $this;
+  }
   public function update($id_tugas)
   {
     //dd($this->request->getVar());
@@ -162,6 +216,7 @@ class Tugas extends BaseController
           ]
         ]
       ])) {
+        session()->setFlashdata('pesan', 'Data tugas gagal diubah.');
         return redirect()->to('/tugas/edit/' . $this->request->getVar('id_tugas'))->withInput();
       }
       $this->tugasModel->updateData($id_tugas, [
@@ -169,13 +224,16 @@ class Tugas extends BaseController
         'nama_tugas' => $this->request->getVar('nama_tugas'),
         'deskripsi' => $this->request->getVar('deskripsi'),
         'deadline' => $this->request->getVar('deadline'),
-        'status' => $this->request->getVar('status'),
+        'status' => ($this->request->getVar('status'))? 1 : 0,
 
       ]);
       $tags = $this->request->getVar('tags');
       $tagsDB = $this->tagsModel->where('id_tugas', $id_tugas)->findAll();
-      $tugasTags = implode(",", array_column($tagsDB, 'nama_tag'));
+      // $tugasTags = implode(",", array_column($tagsDB, 'nama_tag'));
       $dataTags = [];
+      foreach ($tagsDB as $tDB) {
+        $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
+      }
       if ($tags != '') {
         $tagsArr = explode(',', $tags);
         $index = 0;
@@ -184,16 +242,16 @@ class Tugas extends BaseController
           $dataTags[$index]['nama_tag'] = $tag;
           $index++;
         }
-        if ($tugasTags != $tags) {
-          foreach ($tagsDB as $tDB) {
-            $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
-          }
-          $this->tagsModel->insertBatch($dataTags);
-        }
+        // if ($tugasTags != $tags) {
+        //   foreach ($tagsDB as $tDB) {
+        //     $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
+        //   }
+        $this->tagsModel->insertBatch($dataTags);
+        // }
       }
       session()->setFlashdata('pesan', 'Data tugas berhasil diubah.');
     }
 
-    return redirect()->to('/tugas');
+    return redirect()->to('/tugas/index');
   }
 }

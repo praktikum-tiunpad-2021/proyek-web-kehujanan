@@ -1,46 +1,42 @@
-<?= $this->extend('layout/base'); ?>
-<?= $this->section('content'); ?>
-<main>
-  <h2>Tambah tugas</h2>
-  <div>
-    <form action="/tugas/save" method="POST">
-      <?= csrf_field(); ?>
-      <div>
-        <label for="nama">Nama Tugas</label>
-        <div>
-          <input type="text" id="nama" name="nama_tugas" autofocus value="<?= old('nama_tugas'); ?>">
-          <div class="invalid-input">
-            <?= $validation->getError('nama_tugas'); ?>
-          </div>
-        </div>
+<div class="container">
+<form id="forrm" action="/tugas/save" method="POST">
+<?= csrf_field(); ?>
+    <input type="hidden" name="id_user" value="<?= session()->get('id_user') ?>">
+      <h1>Tambah Tugas</h1>
+      <div class="form-group">
+        <input type="text" required="required" name="nama_tugas" value="<?= (old('nama_tugas')); ?>"/>
+        <label for="input" class="control-label">Nama Tugas</label><i class="bar"></i>
       </div>
-      <div>
-        <label for="deskripsi">Deskripsi</label>
-        <div>
-          <textarea name="deskripsi" id="deskripsi" cols="30" rows="5"><?= old('deskripsi'); ?></textarea>
-        </div>
+      <div >
+          <?= $validation->getError('nama_tugas'); ?>
       </div>
-      <div>
-        <label for="deadline">Deadline</label>
-        <div>
-          <input type="datetime-local" id="deadline" name="deadline" value="<?= old('deadline'); ?>">
-          <div class="invalid-input">
-            <?= $validation->getError('deadline'); ?>
-          </div>
-        </div>
+      <div class="form-group">
+        <textarea rows="1" required="required" id="text_area" maxlength="300" minlength="1"
+        onkeyup="document.getElementById('counter').innerHTML = this.value.length;"
+        name="deskripsi"><?= old('deskripsi'); ?></textarea>
+        <label for="textarea" class="control-label">Deskripsi</label><i class="bar"></i>
+        <span id="counter">0</span>
       </div>
-      <div>
-        <label for="tags">Tag</label>
-        <div>
-          <textarea name="tags" id="tags" cols="30" rows="5"><?= old('tags'); ?></textarea>
-        </div>
+
+ <div class="form-group">
+ <input type="datetime-local" id="deadline" name="deadline"
+ value="<?= old('deadline'); ?>">
+      <label for="deadline" class="control-label">Deadline</label><i class="bar"></i>
+    </div>
+    
+      
+    <div class="form-group">
+      <input type="text" required="required" name="tags" value="<?= old('tags'); ?>"/>
+      <label for="tags" class="control-label">Tags</label><i class="bar"></i>
+    </div>
+    <div class="invalid-input">
+        <?= $validation->getError('nama_tugas'); ?>
+    </div>
+      <div style="display: flex;justify-content:space-between;">
+        <button class="textButton" type="button" onclick="postForm(document.querySelector('#forrm'));">Kirim</button>
       </div>
-      <input type="hidden" name="id_user" value="<?= session()->get('id_user') ?>">
-      <button type="submit">Tambah Data</button>
-  </div>
-  <div>
-    <a href="/tugas">Kembali ke daftar tugas</a>
-  </div>
   </form>
-</main>
-<?= $this->endSection(); ?>
+</div>
+<script class="inject once">
+  appendNotification('<?=session()->get('pesan')?>'<?php if(session()->get('isError'))echo',true';?>);
+</script> 

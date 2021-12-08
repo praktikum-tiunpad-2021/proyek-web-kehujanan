@@ -1,6 +1,3 @@
-<?= $this->extend('layout/base'); ?>
-
-<?= $this->section('content'); ?>
 <main>
   <div class="">
     <div class="">
@@ -12,7 +9,7 @@
           <?= session()->get('success'); ?>
         </div>
         <?php endif; ?>
-        <form action="/profile" method="post">
+        <form id="forrm" action="/profile" method="POST">
           <div class="">
             <div class="">
               <div class="">
@@ -53,7 +50,7 @@
 
           <div class="">
             <div class="">
-              <button type="submit" class="btn btn-primary">Update Profile</button>
+            <button type="button" onclick="postForm(document.querySelector('#forrm'));">Update Profile</button>
             </div>
           </div>
         </form>
@@ -61,4 +58,6 @@
     </div>
   </div>
 </main>
-<?= $this->endSection(); ?>
+<script class="inject once">
+  appendNotification('<?=session()->get('pesan')?>'<?php if(session()->get('isError'))echo',true';?>);
+</script> 

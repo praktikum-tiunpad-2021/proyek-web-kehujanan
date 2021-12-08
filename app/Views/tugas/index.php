@@ -1,94 +1,61 @@
-<?= $this->extend('layout/base'); ?>
 
-<?= $this->section('stylesheet'); ?>
-<link rel="stylesheet" href="/css/tabel.css">
-<?= $this->endSection(); ?>
 
-<?= $this->section('content'); ?>
-<main>
-  <div class="container-index">
+<ul class="listWrapper">
+  <?php
+  // var_dump($selectedTags);
+  // var_dump($query);
+  // var_dump($tags);
+  ?>
+<?php $i = 1 ?>
 
-    <h1>TUGAS</h1>
-    <?php if (session()->getFlashdata('pesan')) : ?>
-    <div>
-      <?= session()->getFlashdata('pesan'); ?>
-    </div>
-    <?php endif; ?>
-    <a href="/tugas/create">Tambah Tugas</a>
-    <?php if (count($tugas) != 0) : ?>
-    <div>
-      <form action="/tugas" method="post">
-        <input type="text" placeholder="Search" name="keyword" value="<?= $keyword ?>">
-        <button type="submit">Cari</button>
-      </form>
-      <?php if (!empty($tags)) : ?>
-      <form action="/tugas" method="post">
-        <input type="hidden" name="tags_filter" value="1">
-        <select name="tagchoice" id="">
-          <?php foreach ($tags as $t2) : ?>
-          <option value="<?= $t2['nama_tag']; ?>" <?php echo (($t2['nama_tag'] == $tagkey) ? 'selected' : '') ?>>
-            <?= $t2['nama_tag']; ?></option>
+<?php foreach ($tugas as $t) : ?>
+    <li class="dbRow" onclick="this.classList.toggle('selected')" page="/tugas/<?= $t['id_tugas']; ?>" data="<?= $t['id_tugas']; ?>">
+        <div class="index"><?= $i++ ?></div>
+        <div class="nama"><?= $t['nama_tugas']; ?></div>
+        <div class="deadline"><?= $t['deadline']; ?></div>
+        <div class="tags">
+          <?php foreach ($t['nama_tag'] as $nt) : ?>
+            <div class="tag"><?=$nt?></div>
           <?php endforeach; ?>
-        </select>
-        <button type="submit">Cari</button>
-      </form>
-      <?php endif; ?>
-    </div>
-    <?php if ($keyword) : ?>
-    <div><a href="/tugas">clear search</a></div>
-    <?php endif; ?>
-    <?php if ($tagkey) : ?>
-    <div><a href="/tugas">clear tag</a></div>
-    <?php endif; ?>
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" class="urutan">No</th>
-            <th scope="col" class="nama-tugas">Nama Tugas</th>
-            <th scope="col" class="deadline-tugas">Deadline</th>
-            <th scope="col" class="tag-tugas">Tag</th>
-            <th scope="col" class="status-tugas">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $i = 1 + (5 * ($currentPage - 1)) ?>
-          <?php foreach ($tugas as $t) : ?>
-          <tr>
-            <td><?= $i++ ?></td>
-            <td><?= $t['nama_tugas']; ?></td>
-            <td><?= $t['deadline']; ?></td>
-            <td><?= $t['nama_tag']; ?></td>
-            <td><?php if ($t['status'] == 0) {
-                      echo "Belum Selesai";
+        </div>
+        <div class="edit" onclick="event.stopPropagation();editTugas(this)" page="/tugas/edit/<?= $t['id_tugas']; ?>"><i class="fas fa-pen"></i></div>
+        <div class="delete" onclick="event.stopPropagation();deleteTugas(this);"  action="/tugas/<?= $t['id_tugas']; ?>" method="DELETE"><i class="fas fa-trash"></i></div>
+        <div class="mark<?php if ($t['status'] == 0) {
+                      echo "";
                     } else {
-                      echo "Sudah Selesai";
-                    } ?></td>
-            </td>
-            <td>
-              <form action="/tugas/update/<?= $t['id_tugas'] ?>" method="POST">
-                <input type="hidden" name="status" value="1">
-                <input type="hidden" name="statusUpdate" value="1">
-                <button type="submit" onclick="return confirm('Anda sudah menyelesaikan tugas ini?')"><span
-                    class="checkmark"></span></button>
-              </form>
-            </td>
-            <td>
-              <a href="/tugas/<?= $t['id_tugas']; ?>">detail-></a>
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-      <div><br></div>
-
-      <?php else : ?>
-      <div>
-        <h2>Tidak ada tugas!</h2>
-      </div>
-      <?php endif; ?>
+                      echo " selesai";
+                    } ?>" onclick="event.stopPropagation();markTugas(this);"  action="/tugas/mark/<?= $t['id_tugas']; ?>" method="GET"><i class="fas fa-check"></i></div>
+    </li>
+    <div class="detail">
+      <div class="name">ID :</div><div class="index"><?= $t['id_tugas'];?></div>
+      <div class="name">Time left :</div><div class="timeLeft"><?=$t['timeLeft'];?></div>
+      <div class="name">Desc :</div><div class="desc"><?= $t['deskripsi'];?></div>
     </div>
-  </div>
-</main>
-<?= $this->endSection(); ?>
+    <?php endforeach; ?>
+      
+      
+      
+      <!-- <button type="button" onclick="addTag(document.getElementById('tagchoice'),document.getElementById('selectedTags'));">Add tag</button> -->
+      
+      
+    <!-- <div><button onclick="document.getElementById('keyword').value = '';">clear search</button></div> -->
+</ul>
+<script class="inject once">
+  appendNotification('<?=session()->get('pesan')?>'<?php if(session()->get('isError'))echo',true';?>);
+  <?php if(!$isPost) : ?>
+    if(document.getElementById('tagList'))
+    document.getElementById('tagList').remove();
+    let tagList = document.createElement('datalist');
+    let selectedList = document.getElementById('selectedTags');
+    let searchBar = document.getElementById('searchBar');
+    tagList.id = "tagList";
+    <?php foreach ($tags as $t2) : ?>
+      tagList.appendChild(htmlToElement(" <option value=\"<?=$t2?>\" id=\"<?="tagOption_".$t2?>\"<?php if(in_array($t2,$selectedTags))echo "disabled" ?>></option>"));
+    <?php endforeach; ?>
+    document.getElementById('filterForm').appendChild(tagList);
+    searchBar.value = "<?=$keyword?>";
+    <?php foreach ($selectedTags as $st) : ?>
+      selectedList.appendChild(htmlToElement("<input type=\"checkbox\" class=\"tag\" value=\"<?=$st?>\" checked name=\"selectedTags[]\" onclick=\"clearTag(this);\"></input>"))
+    <?php endforeach; ?>
+<?php endif; ?>
+</script>
