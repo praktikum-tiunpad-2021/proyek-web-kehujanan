@@ -32,10 +32,10 @@ class Database extends Config
      */
     public $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => 'iix80:3306',
+        'username' => 'adnannmyadmin',
+        'password' => 'pOPO2002!',
+        'database' => 'adnannmy_kehujanan',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
@@ -47,7 +47,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => '',
     ];
 
     /**
@@ -59,7 +59,7 @@ class Database extends Config
     public $tests = [
         'DSN'      => '',
         'hostname' => '127.0.0.1',
-        'username' => '',
+        'username' => 'as',
         'password' => '',
         'database' => ':memory:',
         'DBDriver' => 'SQLite3',
@@ -73,7 +73,7 @@ class Database extends Config
         'compress' => false,
         'strictOn' => false,
         'failover' => [],
-        'port'     => 3306,
+        'port'     => '',
     ];
 
     public function __construct()

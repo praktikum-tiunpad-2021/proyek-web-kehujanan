@@ -10,7 +10,7 @@ class Tags extends BaseController
   {
     $model = new TagsModel();
     $data = [];
-    $tag = explode(',', 'suku,negara,bangsad');
+    $tag = explode(',', 'suku,negara,bangsa');
 
     $index = 0;
     foreach ($tag as $taag) {
