@@ -1,3 +1,7 @@
+<?php 
+if (!isset($nama_user)) $nama_user = "";
+if (!isset($email)) $email = "";
+?>
 <head>
   <script src="https://kit.fontawesome.com/2be75d9ff2.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/landing.css">
@@ -8,10 +12,10 @@
   <div class="item" >
                 <h1 style="border-width: 0px;font-size:200%;font-weight:lighter;margin-bottom:30px">App Tugas</h1>
             </div>
-    <div class="item"><input required type="search" id="nnama" name="nama_user" class="input" placeholder=" " autocomplete="new-password">
+    <div class="item"><input required type="search" id="nnama" name="nama_user" class="input" placeholder=" " autocomplete="new-password" value="<?=$nama_user?>">
     <label class="label" for="nnama">Nama Lengkap</label></div>
     
-<div class="item"><input required type="email" id="email" name="email" class="input" placeholder=" " autocomplete="new-password">
+<div class="item"><input required type="email" id="email" name="email" class="input" placeholder=" " autocomplete="new-password" value="<?=$email?>">
     <label class="label" for="email">Email</label></div>
     
     <div class="item"><input required type="password" id="password" name="password" class="input" placeholder=" " autocomplete="new-password">

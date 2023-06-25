@@ -56,7 +56,7 @@ class Users extends BaseController
   }
   public function register()
   {
-    $data = [];
+    $data = $_REQUEST;
     helper(['form']);
 
     if ($this->request->getMethod() == 'post') {

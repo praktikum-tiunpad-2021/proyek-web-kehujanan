@@ -55,14 +55,7 @@ Membantu siswa dalam perkuliahan dengan memudahkan mengingat atau mencatat tugas
 
 Mahasiswa belajar yang suka mencatat tugas-tugasnya
 
-<!-- Mockup Kasar -->
-## Mockup Kasar
-
-<img src="https://i.imgur.com/ayfRdRX.png" alt="mockup1" text="Mockup kasar 1" width="1200" height="600">
-<img src="https://i.imgur.com/yFmIIJz.png" alt="mockup1" text="Mockup kasar 2" width="1200" height="600">
-
-<!-- Skema Database -->
-## Skema Database
-
-![image](https://user-images.githubusercontent.com/57803800/145096685-793568fa-b542-448c-b871-714a2a33abd3.png)
-
+## Versions
+Code Igniter 4.1.4
+PHP 8.0.29
+Composer 2.5.5

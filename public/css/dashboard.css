@@ -93,7 +93,7 @@ body>footer{
     transition: 200ms all;
 }
 .modal.hidden{
-    transform: translatex(-120vh);
+    transform: translatey(100vh) scaleY(0);
 }
 .overlay{
     font-size: xx-large;
@@ -287,8 +287,8 @@ body>footer{
     display: flex;
     flex-direction: row;
     padding: 10px 10px;
-    max-width: 700px;
-    width: fit-content;
+    width: 700px;
+    /* width: fit-content; */
     flex-wrap: wrap;
     background-color: #373E40;
     position: relative;
@@ -297,10 +297,23 @@ body>footer{
     box-sizing: border-box;
     align-content: flex-start;
 }
+.empty-text{
+    flex: 1 0 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    color: white;
+    display:block;
+}
+.dbRow~.empty-text{
+    display:none;
+}
 .dbRow{
     display: flex;
     margin-top: 8px;
-    flex: 1 0 100%; /* explanation below */
+    flex: 1 0 100%;
     
     padding : 0 0;
     flex-direction: row;

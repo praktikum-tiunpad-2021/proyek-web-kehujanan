@@ -12,7 +12,7 @@ use Faker\Documentor;
 <?php $i = 1 ?>
 
 <?php foreach ($tugas as $t) : ?>
-    <li class="dbRow" onclick="this.classList.toggle('selected')" page="/tugas/<?= $t['id_tugas']; ?>" data="<?= $t['id_tugas']; ?>">
+  <li class="dbRow" onclick="this.classList.toggle('selected')" page="/tugas/<?= $t['id_tugas']; ?>" data="<?= $t['id_tugas']; ?>">
         <div class="index"><?= $i++ ?></div>
         <div class="nama"><?= $t['nama_tugas']; ?></div>
         <div class="deadline"><?= $t['deadline']; ?></div>
@@ -34,7 +34,11 @@ use Faker\Documentor;
       <div class="name">Time left :</div><div class="timeLeft"><?=$t['timeLeft'];?></div>
       <div class="name">Desc :</div><div class="desc"><?= $t['deskripsi'];?></div>
     </div>
-    <?php endforeach; ?>
+<?php endforeach; ?>
+<div class="empty-text">
+  <div>Tidak Ada Tugas :)</div>
+  <div>tambah baru atau cek filter</div>
+</div>
       
       
       

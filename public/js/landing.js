@@ -192,7 +192,13 @@ function postForm(e) {
     xhr.open('post',url,true);
     let formData=new FormData(e);
     formData.append('update', true);    // makes no difference
-    xhr.send(formData);
+    try {
+        xhr.send(formData);
+    }
+    catch(err) {
+        appendNotification("Data gagal diupdate",true);
+        return;
+    }
     xhr.onload=function() {
         let path = "/tugas";
         let indexURL = origin+path;
@@ -205,7 +211,14 @@ function postForm(e) {
             updatePage(pageAddress,createInjectContainer(response));
         }// validation failed
         updatePage(pageAddress,createInjectContainer(response));
-        
+        if(xhr.status != 200){
+
+            appendNotification("Data gagal diupdate",true);
+        }
+        else{
+
+            appendNotification(xhr.getResponseHeader('pesan'));
+        }
         isProcessing = false;
     };
 }
@@ -213,7 +226,7 @@ function markTugas(el = new HTMLElement()) {
     if (isProcessing) {
         return;
     }
-    let confirmString = el.classList.contains('selesai') ? 'Sudah menyelesaikan tugas ini?' : 'Belum menyelesaikan tugas ini?';
+    let confirmString = el.classList.contains('selesai') ? 'Belum menyelesaikan tugas ini?' : 'Sudah menyelesaikan tugas ini?';
     if(!confirm(confirmString)) return;
     isProcessing = true;
     let page = el.getAttribute('action');
@@ -297,7 +310,7 @@ function activate(elOrId,push=true) {
 }
 
 function appendNotification(str,error=false){
-    if(str == "") return;
+    if(str === "" || str == null) return;
     let notificationNode = document.createElement('span');
     let notificationList = document.getElementById('notificationList');
     if(error) notificationNode.classList.add('error');

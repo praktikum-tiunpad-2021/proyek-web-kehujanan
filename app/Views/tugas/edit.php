@@ -37,7 +37,7 @@
     <?php $status = (old('status')) ? old('status') : $tugas['status'] ?>
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="status" checked="checked" value="1"/><i class="helper"></i>Sudah selesai
+          <input type="checkbox" name="status" <?=($status) == 1 ? "checked" : ""?> value="<?=$status?>"/><i class="helper"></i>Sudah selesai
         </label>
       </div>
       <div style="display: flex;justify-content:space-between;">
