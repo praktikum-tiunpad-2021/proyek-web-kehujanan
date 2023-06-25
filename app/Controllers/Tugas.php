@@ -217,14 +217,14 @@ class Tugas extends BaseController
         ]
       ])) {
         session()->setFlashdata('pesan', 'Data tugas gagal diubah.');
-        // return redirect()->to('/tugas/edit/' . $this->request->getVar('id_tugas'))->withInput();
+        return redirect()->to('/tugas/edit/' . $this->request->getVar('id_tugas'))->withInput();
       }
       $this->tugasModel->updateData($id_tugas, [
         'id_tugas' => $id_tugas,
         'nama_tugas' => $this->request->getVar('nama_tugas'),
         'deskripsi' => $this->request->getVar('deskripsi'),
         'deadline' => $this->request->getVar('deadline'),
-        'status' => $this->request->getVar('status'),
+        'status' => ($this->request->getVar('status'))? 1 : 0,
 
       ]);
       $tags = $this->request->getVar('tags');
@@ -232,12 +232,15 @@ class Tugas extends BaseController
       // $tugasTags = implode(",", array_column($tagsDB, 'nama_tag'));
       $dataTags = [];
       foreach ($tagsDB as $tDB) {
-        $this->tagsModel->where(array('id_tugas' => $id_tugas, 'nama_tag' => $$tDB['nama_tag']))->delete();
+        $this->tagsModel->where('nama_tag', $tDB['nama_tag'])->delete();
       }
       if ($tags != '') {
         $tagsArr = explode(',', $tags);
+        $index = 0;
         foreach ($tagsArr as $tag) {
-          array_push($dataTags,['id_tugas' => $id_tugas,'nama_tag' => $tag]);
+          $dataTags[$index]['id_tugas'] = $id_tugas;
+          $dataTags[$index]['nama_tag'] = $tag;
+          $index++;
         }
         // if ($tugasTags != $tags) {
         //   foreach ($tagsDB as $tDB) {
@@ -249,6 +252,6 @@ class Tugas extends BaseController
       session()->setFlashdata('pesan', 'Data tugas berhasil diubah.');
     }
 
-    // return redirect()->to('/tugas/index');
+    return redirect()->to('/tugas/index');
   }
 }

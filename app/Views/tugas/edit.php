@@ -1,5 +1,5 @@
 <div class="container">
-<form id="forrm" action="/tugas/edit/<?= $tugas['id_tugas']; ?>" method="POST">
+<form id="forrm" action="/tugas/update/<?= $tugas['id_tugas']; ?>" method="POST">
 <?= csrf_field(); ?>
     <input type="hidden" name="id_tugas" value="<?= $tugas['id_tugas']; ?>">
     <input type="hidden" name="id_user" value="<?= $tugas['id_user']; ?>">
@@ -34,11 +34,10 @@
         <?= $validation->getError('nama_tugas'); ?>
     </div>
 
-    <?php $status = $tugas['status'] ?>
+    <?php $status = (old('status')) ? old('status') : $tugas['status'] ?>
       <div class="checkbox">
-        <input type="hidden" name="status" value="0"/>
         <label>
-          <input type="checkbox" name="status" <?php echo $status==1?'checked' : '' ?> value="1"/><i class="helper"></i>Sudah selesai
+          <input type="checkbox" name="status" checked="checked" value="1"/><i class="helper"></i>Sudah selesai
         </label>
       </div>
       <div style="display: flex;justify-content:space-between;">

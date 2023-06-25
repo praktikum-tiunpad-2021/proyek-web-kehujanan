@@ -8,7 +8,7 @@ class TugasModel extends Model
 {
   protected $table = 'tugas';
   protected $primaryKey = 'id_tugas';
-  protected $allowedFields = ['id_tugas', 'nama_tugas', 'deskripsi', 'deadline', 'id_user', 'status', 'id_matkul'];
+  protected $allowedFields = ['id_tugas', 'nama_tugas', 'deskripsi', 'deadline', 'id_user', 'id_matkul'];
 
   public function getTugas($id_tugas)
   {
