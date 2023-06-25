@@ -1,0 +1,138 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #373E40 inset !important;
+}
+input:-webkit-autofill{
+    -webkit-text-fill-color: #5CDB94FF !important;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  height:100vh;
+  width:100vw;
+  display: grid;
+/*   justify-content: center; */
+  justify-items: center;
+/*   align-items: center; */
+  align-content: center;
+  background-color: #77878B;
+}
+.container{
+  width: 350px;
+  min-height: 500px;
+  height: auto;
+  display: grid;
+/*   justify-content: center; */
+  justify-items: center;
+/*   align-items: center; */
+  align-content: center;
+  background-color:#373E40; 
+  font-family: sans-serif;
+}
+.item{
+  margin: 13px 0;
+  position:relative;
+  background-color: inherit;
+}
+.item.errors{
+  list-style: armenian;
+  padding: 0 25px;
+}
+.item>*{
+  display: inline-block;
+  position: relative;
+  color: #5CDB94FF;
+  border: 2px solid #5CDB94FF;
+  outline: none;
+  font-family: comic-sans;
+  font-size: 120%;
+  text-decoration: none;
+  transition: 100ms all ease;
+  background: inherit;
+}
+.item>.errors{
+  border-color: #B02E0C;
+  color: #B02E0C;
+}
+.input{
+  border-radius:4px;
+  padding: 1rem 0.8rem 0.8rem 0.8rem;
+}
+.label{
+  background-color: inherit;
+  border: none;
+  padding: 0 4px;
+  position: absolute;
+  top: 0.9rem;
+  left: 0.6rem;
+  cursor: text;
+}
+input:-webkit-autofill ~ .label,
+.input:hover ~ .label,
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label {
+  top: -0.6rem;
+/*   font-size: 0.8rem; */
+  left: 0.6rem;
+}
+.buttonText,.textButton{
+  cursor:pointer;
+  transition: 75ms all ease;
+}
+.buttonText{
+  left: 30px;
+  width: 75px;
+  height: 75px;
+/*   top: 20px;
+  left: 100px; */
+  background: none;
+  border-radius:100%;
+}
+.buttonText:hover::after{
+  content: attr(text);
+  font-size: 80%;
+}
+.buttonText:hover{
+  transform: scale(110%);
+  border-width: 4px;
+}
+.buttonText:hover>*{
+  display: none;
+  
+}
+.buttonText>*{
+  transform: scale(150%);
+}
+
+.textButton{
+text-align: center;
+  top:-30px;
+  right:30px;
+  width:130px;
+  height:35px;
+  font-size: 90%;
+  border-width: 0px;
+  padding: 5px;
+}
+.textButton:hover::after{
+  content: attr(text);
+  font-size:110%;
+}
+.textButton:hover{
+  transform: scale(100%);
+  border-width: 2px;
+  border-radius:4px;
+  
+}
+.textButton:hover>*{
+  display: none;  
+}
